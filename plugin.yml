@@ -1,0 +1,215 @@
+main: me.destinyofyeet.CombinedMcPlugin.main.Main
+version: 9.5
+name: CombinedMcPlugin
+author: DestinyofYeet
+api-version: 1.16
+
+commands:
+  spawn:
+    description: Lets you teleport to the set spawn
+    usage: /<command>
+    permission: CombinedMcPlugin.spawn.spawn
+    default: true
+
+  ping:
+    description: Lets you see your ping
+    usage: /<command>
+    permission: CombinedMcPlugin.ping
+
+  setspawn:
+    description: Lets you set the spawn to teleport to
+    usage: /<command>
+    permission: CombinedMcPlugin.spawn.set
+
+  rlconfig:
+    description: Reloads the config values
+    usage: /<command>
+    permission: CombinedMcPlugin.config.reload
+
+  home:
+    description: Teleports you to a home
+    usage: /<command> [home]
+    permission: CombinedMcPlugin.home.home
+
+  sethome:
+    description: Sets a home
+    usage: /<command> [home]
+    permission: CombinedMcPlugin.home.sethome
+
+  delhome:
+    description: Deletes a home
+    usage: /<command> [home]
+    permission: CombinedMcPlugin.home.delhome
+
+  listhome:
+    description: Lists your home
+    usage: /<command>
+    permission: CombinedMcPlugin.home.listhome
+
+  skipnight:
+    description: Lets you enable or disable the night-skip feature
+    usage: /<command> [enable / disable]
+    permission: CombinedMcPlugin.night.manage
+
+  setradius:
+    description: Sets the Elytra radius from the worldspawn
+    usage: /<command> [distance]
+    permission: CombinedMcPlugin.radius.manage
+
+  msg:
+    description: Send a private message to a player
+    usage: /<command> <player> <message>
+    permission: CombinedMcPlugin.msg.send
+
+  reply:
+    description: Lets you reply to a recently sent msg
+    usage: /<command> <message>
+    permission: CombinedMcPlugin.msg.reply
+    aliases:
+      - r
+
+  msgspy:
+    description: Redirects all sent msg-messages to all players with operator
+    usage: /<command> [enable / disable]
+    permission: CombinedMcPlugin.msg.spy
+
+  mute:
+    description: Lets you mute another player
+    usage: /<command> <player>
+    permission: CombinedMcPlugin.mute.mute
+
+
+
+permissions:
+  CombinedMcPlugin.*:
+    description: All Permissions
+    default: op
+    children:
+      CombinedMcPlugin.spawn.*: false
+      CombinedMcPlugin.config.*: false
+      CombinedMcPlugin.home.*: false
+      CombinedMcPlugin.night.*: false
+      CombinedMcPlugin.msg.*: false
+      CombinedMcPlugin.mute.*: false
+      CombinedMcPlugin.ping: true
+
+  CombinedMcPlugin.ping:
+    description: Lets you see your ping
+    default: true
+
+  CombinedMcPlugin.mute.*:
+    description: All mute permissions
+    default: op
+    children:
+      CombinedMcPlugin.mute.mute: false
+      CombinedMcPlugin.mute.bypass: false
+
+  CombinedMcPlugin.mute.mute:
+    description: Lets you mute another player
+    default: op
+
+  CombinedMcPlugin.mute.bypass:
+    description: Lets you bypass the mute
+    default: op
+
+  CombinedMcPlugin.msg.*:
+    description: All msg permissions
+    default: op
+    children:
+      CombinedMcPlugin.msg.send: true
+      CombinedMcPlugin.msg.reply: true
+      CombinedMcPlugin.msg.spy: false
+
+  CombinedMcPlugin.msg.send:
+    description: Allows you to send a msg message
+    default: true
+
+  CombinedMcPlugin.msg.reply:
+    description: Allows you to quickly reply to a user
+    default: true
+
+  CombinedMcPlugin.msg.spy:
+    description: Allows you to spy on all msg messages sent
+    default: op
+
+  CombinedMcPlugin.night.*:
+    description: All night permissions
+    default: op
+    children:
+      CombinedMcPlugin.night.manage: false
+
+  CombinedMcPlugin.night.manage:
+    description: Lets you enable or disable the night-skip feature
+    default: op
+
+  CombinedMcPlugin.home.*:
+    description: All home permissions
+    default: op
+    children:
+      CombinedMcPlugin.home.home: true
+      CombinedMcPlugin.home.sethome: true
+      CombinedMcPlugin.home.sethome.*: false
+      CombinedMcPlugin.home.delhome: true
+      CombinedMcPlugin.home.listhome: true
+      CombinedMcPlugin.home.listhome.*: false
+
+  CombinedMcPlugin.home.home:
+    description: Lets you teleport to your home
+    default: true
+
+  CombinedMcPlugin.home.sethome:
+    description: Lets you set one home
+    default: true
+
+  CombinedMcPlugin.home.sethome.*:
+    description: All sethome permissions
+    default: op
+    children:
+      CombinedMcPlugin.home.sethome.more: false
+
+  CombinedMcPlugin.home.sethome.more:
+    description: Lets you set more than one home
+    default: op
+
+  CombinedMcPlugin.home.delhome:
+    description: Lets you delete a home
+    default: true
+
+  CombinedMcPlugin.spawn.*:
+    default: op
+    description: All Spawn permissions
+    children:
+      CombinedMcPlugin.spawn.spawn: true
+      CombinedMcPlugin.spawn.set: false
+
+  CombinedMcPlugin.spawn.spawn:
+    description: Lets you teleport to set spawn
+    default: true
+
+  CombinedMcPlugin.spawn.set:
+    description: Lets you set the spawn
+    default: op
+
+  CombinedMcPlugin.home.listhome:
+    description: Lets you list your homes
+    default: true
+
+  CombinedMcPlugin.home.listhome.*:
+    description: All listhome permissions
+    default: op
+    children:
+      CombinedMcPlugin.home.listhome.others: false
+
+  CombinedMcPlugin.home.listhome.others:
+    description: Lets you list homes from other people
+    default: op
+
+  CombinedMcPlugin.config.*:
+    default: op
+    description: All config permissions
+    children:
+      CombinedMcPlugin.config.reload: false
+
+  CombinedMcPlugin.config.reload:
+    description: Reloads the config values
+    default: op
